@@ -1,43 +1,23 @@
 'use strict';
 
 //-------------------- Load some deferred styles --------------------//
-var loadDeferredStyles = function() 
-{
-	var addStylesNode = document.getElementById('deferred-styles');
-	var replacement = document.createElement('div');
-	replacement.innerHTML = addStylesNode.textContent;
-	document.body.appendChild(replacement);
-	addStylesNode.parentElement.removeChild(addStylesNode);
-}
-var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-    webkitRequestAnimationFrame || msRequestAnimationFrame;
-if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-else window.addEventListener('load', loadDeferredStyles);
+// var loadDeferredStyles = function() 
+// {
+// 	var addStylesNode = document.getElementById('deferred-styles');
+// 	var replacement = document.createElement('div');
+// 	replacement.innerHTML = addStylesNode.textContent;
+// 	document.body.appendChild(replacement);
+// 	addStylesNode.parentElement.removeChild(addStylesNode);
+// }
+// var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+//     webkitRequestAnimationFrame || msRequestAnimationFrame;
+// if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+// else window.addEventListener('load', loadDeferredStyles);
 //-------------------- /Load some deferred styles --------------------//
-
-// Smartsupp Live Chat script
-var _smartsupp = _smartsupp || {};
-_smartsupp.key = 'f32f591b82ffa879c325ae96ca021013ef7a7d64';
-window.smartsupp||(function(d) {
-	var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-	s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-	c.type='text/javascript';c.charset='utf-8';c.async=true;
-	c.src='//www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-})(document);
 
 function hasClass(el, cls) 
 {
 	return el.className && new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className);
-}
-
-function jobsLoadingIndicator()
-{
-	var loader = document.getElementsByClassName('job-listing__list-container')[0];
-	if(hasClass(loader, 'loading')) {
-		loader.classList.remove('loading');
-	} else {
-		loader.classList.add('loading');
-	}
 }
 
 function openSearch($el) 
@@ -55,17 +35,6 @@ function hideSearch()
 	document.getElementById('search-field-general').classList.remove('active');
 	document.getElementById('header-social-links').classList.remove('active');
 	document.getElementsByClassName('search-btn')[0].classList.remove('active');
-}
-
-function showLang($el, event) 
-{
-	if(window.innerWidth <= 760 && !hasClass($el, 'active')) {
-		event.preventDefault();
-		$el.classList.add('active');
-	} else if(window.innerWidth <= 760 && hasClass($el, 'active')) {
-		event.preventDefault();
-		$el.classList.remove('active');
-	}
 }
 
 function showMenu($el) 
@@ -153,90 +122,6 @@ function loadCarousel()
 		});
 		siemaAutoplay(5000, mySiema, siema);
 	}
-}
-
-function loadClientsCarousel() 
-{
-	var siema = document.getElementById('siema-carousel-clients');
-	if(siema) {
-		const mySiema = new Siema({
-			selector: '#siema-carousel-clients',
-			duration: 500,
-			easing: 'ease',
-			perPage: 1,
-			startIndex: 0,
-			draggable: true,
-			threshold: 20,
-			loop: true
-		});
-		document.getElementById('siema-prev-clients').addEventListener('click', function() {
-			mySiema.prev()
-		});
-		document.getElementById('siema-next-clients').addEventListener('click', function() {
-			mySiema.next()
-		});
-		// siemaAutoplay(5000, mySiema, siema);
-	}
-}
-
-function loadCandidatesCarousel() 
-{
-	var siema = document.getElementById('siema-carousel-candidates');
-	if(siema) {
-		const mySiema = new Siema({
-			selector: '#siema-carousel-candidates',
-			duration: 500,
-			easing: 'ease',
-			perPage: 1,
-			startIndex: 0,
-			draggable: true,
-			threshold: 20,
-			loop: true
-		});
-		document.getElementById('siema-prev-candidates').addEventListener('click', function() {
-			mySiema.prev()
-		});
-		document.getElementById('siema-next-candidates').addEventListener('click', function() {
-			mySiema.next()
-		});
-		// siemaAutoplay(5000, mySiema, siema);
-	}
-}
-
-function showForm()
-{
-	document.getElementById('jobFormModal').style.display = 'flex';
-	setTimeout(function() {
-		document.getElementById('jobFormModal').classList.add('active');
-		document.getElementsByTagName('html')[0].classList.add('modal-open');
-	}, 50);
-}
-
-function hideForm() 
-{
-	document.getElementById('jobFormModal').classList.remove('active');
-	document.getElementsByTagName('html')[0].classList.remove('modal-open');
-	setTimeout(function() {
-		document.getElementById('jobFormModal').style.display = 'none';
-	}, 500);
-}
-
-function showCVForm()
-{
-	document.getElementById('uploadCvModal').style.display = 'flex';
-	setTimeout(function() {
-		document.getElementById('uploadCvModal').classList.add('active');
-		document.getElementsByTagName('html')[0].classList.add('modal-open');
-	}, 50);
-}
-
-function hideCVForm() 
-{
-	document.getElementById('uploadCvModal').classList.remove('active');
-	document.getElementsByTagName('html')[0].classList.remove('modal-open');
-	setTimeout(function() {
-		document.getElementById('uploadCvModal').style.display = 'none';
-	}, 500);
 }
 
 function getFileName($input, $el)
@@ -360,23 +245,26 @@ function initContactMap()
 	);
 }
 
-loadCarousel();
-loadClientsCarousel();
-loadCandidatesCarousel();
-
-// Trigger close form modal window when click on overlay
-if(document.getElementById('jobFormModal')) {
-	document.getElementById('jobFormModal').addEventListener('click', function(e) {
-		if (e.target === document.getElementById('jobFormModal')) {
-			hideForm();
+function menuStick()
+{
+	var $menu = $('.main-navigation');
+	var $menuH = $menu.outerHeight();
+	var $windowH = $(window).height();
+	$(window).on('scroll', function(e) {
+		if($(window).scrollTop() >= ($menuH)) {
+			$menu.stop(true, true).addClass('smaller');
+		} else if($(window).scrollTop() < ($menuH)) {
+			$menu.stop(true, true).removeClass('smaller');
 		}
-	}, false);
+	});
 }
 
-if(document.getElementById('uploadCvModal')) {
-	document.getElementById('uploadCvModal').addEventListener('click', function(e) {
-		if (e.target === document.getElementById('uploadCvModal')) {
-			hideCVForm();
-		}
-	}, false);
-}
+$(document).ready(function() {
+	menuStick();
+});
+
+$(window).on('resize', function() {
+	setTimeout(function() {
+		menuStick();
+	}, 300);
+});
