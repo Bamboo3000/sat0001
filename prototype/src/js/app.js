@@ -258,9 +258,26 @@ function menuStick()
 		}
 	});
 }
+function positionAware()
+{
+	$('.btn-position-aware')
+		.on('mouseenter', function(e) {
+			var parentOffset = $(this).offset(),
+				relX = e.pageX - parentOffset.left,
+				relY = e.pageY - parentOffset.top;
+			$(this).find('.effect').css({top:relY, left:relX})
+		})
+		.on('mouseleave', function(e) {
+			var parentOffset = $(this).offset(),
+				relX = e.pageX - parentOffset.left,
+				relY = e.pageY - parentOffset.top;
+			$(this).find('.effect').css({top:relY, left:relX})
+		});
+}
 
 $(document).ready(function() {
 	menuStick();
+	positionAware();
 });
 
 $(window).on('resize', function() {
