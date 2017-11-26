@@ -306,4 +306,89 @@
 
 	}
 
+	&__testimonials {
+		padding: 100px 0;
+		position: relative;
+		text-align: center;
+
+		&-text {
+			text-align: center;
+			position: relative;
+			z-index: 9;
+			
+			p {
+				font-size: 21px;
+				font-weight: 900;
+				text-transform: uppercase;
+				letter-spacing: 10px;
+			}
+
+			hr {
+				height: 8px;
+				background-color: $color-tertiary;
+				border: none;
+				display: block;
+				position: relative;
+				width: 64px;
+				margin: 48px auto 18px;
+				transform: skew(45deg);
+			}
+		
+		}
+
+		&-slider {
+			text-align: center;
+		}
+
+		&-item {
+			padding: 30px;
+			padding-bottom: 0;
+
+			h3 {
+				font-size: 32px;
+				font-weight: 900;
+				line-height: 1.21;
+				margin: 0 auto;
+				position: relative;
+
+				&:before,
+				&:after {
+					position: absolute;
+					display: block;
+					color: $color-tertiary;
+					font-size: 196px;
+					opacity: 0.3;
+					line-height: 1;
+					z-index: -1;
+				}
+
+				&:before {
+					top: -30px;
+					left: -30px;
+					content: '“';
+				}
+
+				&:after {
+					bottom: -150px;
+					right: -30px;
+					content: '”';
+				}
+
+			}
+
+			h4 {
+				font-size: 24px;
+				font-weight: 400;
+				line-height: 1.21;
+				margin: 30px auto 0;
+			}
+
+		}
+
+		.btn {
+			margin-top: 48px;
+		}
+
+	}
+
 }
